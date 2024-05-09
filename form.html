@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>User Validation</title>
+    <script>
+        function validateUser() {
+            var urlParams = new URLSearchParams(window.location.search);
+            var fname = urlParams.get('fname');
+            var lname = urlParams.get('lname');
+            var phone = urlParams.get('phone');
+}
+
+        function checkUserData() {
+            var enteredUsername = document.getElementById("username").value;
+            var enteredPhone = document.getElementById("enteredPhone").value;
+            var urlParams = new URLSearchParams(window.location.search);
+            var fname = urlParams.get('fname');
+            var lname = urlParams.get('lname');
+            var phone = urlParams.get('phone');
+
+         
+            if (enteredUsername === (fname + " " + lname) && enteredPhone === phone) {
+                alert("User validated successfully");
+            } else {
+                alert("Validation failed. Please enter correct username and phone number.");
+            }
+        }
+    </script>
+</head>
+<body onload="validateUser()" bgcolor="pink">
+
+    <h1>User Validation</h1>
+    <form onsubmit="return false;">
+        <label for="username">Enter your username:</label>
+        <input type="text" id="username" name="username"><br><br>
+        <label for="enteredPhone">Enter your phone number:</label>
+        <input type="tel" id="enteredPhone" name="enteredPhone" pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}">
+        <br><br>
+        <input type="button" value="Validate" style="height:30px;width:100px;background-color:blue;color:white" onclick="checkUserData()">
+    </form>
+
+</body>
+</html>

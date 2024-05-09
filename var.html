@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Registration Form</title>
+    <script>
+        function validateForm() {
+            var fname = document.getElementById("fname").value;
+            var lname = document.getElementById("lname").value;
+            var age = document.getElementById("age").value;
+            var date = document.getElementById("datemax").value;
+            var phone = document.getElementById("phone").value;
+            var address = document.getElementById("address").value;
+
+            if (fname == "" || lname == "" || age == "" || date == "" || phone == "" || address == "") {
+                alert("All fields are required");
+                return false;
+            } else {
+           
+                window.open("form.html?fname=" + fname + "&lname=" + lname + "&phone=" + phone);
+                return true;
+            }
+        }
+    </script>
+</head>
+<body bgcolor="pink" align="center">
+    <h1>Registration Form</h1>
+    <form onsubmit="return validateForm()">
+        <label for="fname">First name:</label>
+        <input type="text" id="fname" name="fname"><br><br>
+        <label for="lname">Last name:</label>
+        <input type="text" id="lname" name="lname"><br><br>
+        <label for="age"> &nbsp &nbsp &nbsp &nbsp Age : </label>
+        <input type="number" id="age" name="age"><br><br>
+		<label for="email">Enter your email:</label>
+        <input type="email" id="email" name="email"><br><br>
+        <label for="datemax">Enter dob :</label>
+        <input type="date" id="datemax" name="datemax"><br><br>
+        <label for="phone">Enter your phone number:</label>
+        <input type="tel" id="phone" name="phone" >
+        <br>
+        <h3></h3>
+        <p><label>&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp Address : <textarea name="address" id="address" cols="30" rows="3"></textarea></label></p><br>
+        <label for="myfile"> &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp Select a file:</label>
+        <input type="file" id="myfile" name="myfile"><br><br>
+        <input type="submit" value="Submit" style="height:30px;width:100px;background-color:green;color:white">
+        <input type="button" value="Back" style="height:30px;width:100px;background-color:blue;color:white">
+    </form>
+</body>
+</html>

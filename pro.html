@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Attendance Management System</title>
+    <style>
+        /* CSS styles */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .attendance-list {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>Add team members</h2>
+		<label for="title">Username:</label>
+            <input type="text" id="title" placeholder="Enter your username">
+        <table id="student-table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>employee ID</th>
+                    <th>add</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Student rows will be dynamically added here -->
+            </tbody>
+        </table>
+        <button onclick="addStudent()">Add member</button>
+        <button onclick="startAttendance()">Start allocate</button>
+    </div>
+
+    <div class="container" id="page2" style="display: none;">
+        <h2>project Summary</h2>
+        <div id="attendance-summary"></div>
+        <button onclick="finishAttendance()">Finish project allocation</button>
+    </div>
+
+    <script>
+        // JavaScript functions
+        let students = [];
+
+        function addStudent() {
+            const tableBody = document.querySelector('#student-table tbody');
+            const newRow = document.createElement('tr');
+            newRow.innerHTML = `
+                <td><input type="text" class="student-name"></td>
+                <td><input type="text" class="student-id"></td>
+                <td><input type="checkbox" class="attendance-checkbox" checked></td>
+            `;
+            tableBody.appendChild(newRow);
+        }
+
+        function startAttendance() {
+            students = [];
+            const studentRows = document.querySelectorAll('#student-table tbody tr');
+            studentRows.forEach(row => {
+                const nameInput = row.querySelector('.student-name');
+                const idInput = row.querySelector('.student-id');
+                const attendanceCheckbox = row.querySelector('.attendance-checkbox');
+
+                const name = nameInput.value.trim();
+                const id = idInput.value.trim();
+                const present = attendanceCheckbox.checked;
+
+                if (name && id) {
+                    students.push({ name, id, present });
+                }
+            });
+
+            document.getElementById('page2').style.display = 'block';
+            displayAttendanceSummary();
+        }
+
+        function displayAttendanceSummary() {
+            const attendanceSummaryDiv = document.getElementById('attendance-summary');
+			const projectid=document.getElementById('title').value;
+            attendanceSummaryDiv.innerHTML = '<h3>Attendance Summary:</h3>';
+
+            const presentees = [];
+            const absentees = [];
+			
+
+            students.forEach(student => {
+                if (student.present) {
+				    
+                    presentees.push(`${student.name} (${student.id})`);
+                } else {
+                    absentees.push(`${student.name} (${student.id})`);
+                }
+            });
+
+            if (presentees.length > 0) {
+                attendanceSummaryDiv.innerHTML += `<div class="attendance-list"><strong>{projectid}</strong> ${presentees.join(', ')}</div>`;
+            }
+
+        }
+
+        function finishAttendance() {
+            alert('Attendance Recorded Successfully!');
+            resetForm();
+        }
+
+        function resetForm() {
+            const tableBody = document.querySelector('#student-table tbody');
+            tableBody.innerHTML = ''; // Clear student table rows
+            students = [];
+            document.getElementById('page2').style.display = 'none';
+        }
+    </script>
+</body>
+</html>
